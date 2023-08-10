@@ -16,12 +16,12 @@ public class Bullet : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (UI.instance.gamestate != GameState.Play)
+        if (UI.Instance.gamestate != GameState.Play)
             return;
 
         transform.Translate(Vector3.right * Time.deltaTime * 10f);
     }
-    void End()
+    public void End()
     {
         BulletPool.Instance.TakeBullet(this);
     }

@@ -30,10 +30,8 @@ public class UpgradeUI
     public TMP_Text desc1;
     public TMP_Text desc2;
 }
-public class UI : MonoBehaviour
+public class UI : Singleton<UI>
 {
-    public static UI instance;
-
     [HideInInspector] public GameState gamestate = GameState.Stop;
 
     [SerializeField] UpgradeData[] upData;
@@ -92,11 +90,6 @@ public class UI : MonoBehaviour
         {
             txtLv.text = $"Lv.{value}";
         }
-    }
-
-    private void Awake()
-    {
-        instance = this;
     }
     // Start is called before the first frame update
     void Start()

@@ -22,7 +22,7 @@ public class Farmer2 : Player
         maxExp = 100;
 
         level = 0;
-        UI.instance.Level = level + 1;
+        UI.Instance.Level = level + 1;
 
         gunDamage = 100;
 

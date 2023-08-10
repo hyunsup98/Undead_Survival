@@ -22,7 +22,7 @@ public class MonsterSpawn : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (UI.instance.gamestate != GameState.Play)
+        if (UI.Instance.gamestate != GameState.Play)
             return;
 
         if (p == null && GameManager.Instance != null)
@@ -37,7 +37,7 @@ public class MonsterSpawn : MonoBehaviour
             CreateMonster();
 
             spawnDelayTime = 7f;
-            spawnDelayTime -= UI.instance.gameLevel;
+            spawnDelayTime -= UI.Instance.gameLevel;
         }
 
         if(box != null)
@@ -62,9 +62,9 @@ public class MonsterSpawn : MonoBehaviour
         Vector2 v = RandomPosition(boxCollider);
 
         int randSpawnCount = 0;
-        if (monsters.Length > (UI.instance.KillCount / 100))
+        if (monsters.Length > (UI.Instance.KillCount / 100))
         {
-            randSpawnCount = (UI.instance.KillCount / 100);
+            randSpawnCount = (UI.Instance.KillCount / 100);
         }
         else
         {
@@ -91,5 +91,12 @@ public class MonsterSpawn : MonoBehaviour
     public void SetBox(Box box)
     {
         this.box = box;
+    }
+
+    //ÃÑ¾ËÀ» º®¿¡ Ãæµ¹ÇßÀ» ¶§ ÃÑ¾ËÀ» ¾ø¾Ú
+    public void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.GetComponent<Bullet>())
+            collision.GetComponent<Bullet>().End();
     }
 }

@@ -41,13 +41,13 @@ public class Player : MonoBehaviour
         set
         {
             exp = value;
-            UI.instance.SetExp(ref exp, ref maxExp, ref level);
+            UI.Instance.SetExp(ref exp, ref maxExp, ref level);
         }
     }
     // Update is called once per frame
     void Update()
     {
-        if (UI.instance.gamestate != GameState.Play)
+        if (UI.Instance.gamestate != GameState.Play)
             return;
 
         x = Input.GetAxis("Horizontal");
@@ -100,15 +100,15 @@ public class Player : MonoBehaviour
     }
     public void Hit(int damage)
     {
-        if (UI.instance.gamestate != GameState.Play)
+        if (UI.Instance.gamestate != GameState.Play)
             return;
 
         HP -= damage;
-        UI.instance.SetHp(HP, MaxHP);
+        UI.Instance.SetHp(HP, MaxHP);
 
         if (HP <= 0)
         {
-            UI.instance.gamestate = GameState.Stop;
+            UI.Instance.gamestate = GameState.Stop;
             animator.SetTrigger("Dead");
 
             Invoke("Dead", 2f);
@@ -205,7 +205,7 @@ public class Player : MonoBehaviour
     }
     void Dead()
     {
-        UI.instance.ShowDeadPopUp(level + 1);
+        UI.Instance.ShowDeadPopUp(level + 1);
     }
     public void Shield()
     {

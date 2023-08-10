@@ -16,13 +16,13 @@ public class Farmer0 : Player
         shieldSpeed = 100;
 
         Speed = 3f;
-        BulletFireDelayTime = 0.7f;       // ÃÑ¾Ë ¹ß»ç µô·¹ÀÌ
+        BulletFireDelayTime = 0.2f;       // ÃÑ¾Ë ¹ß»ç µô·¹ÀÌ
 
         exp = 0;
         maxExp = 100;
 
         level = 0;
-        UI.instance.Level = level + 1;
+        UI.Instance.Level = level + 1;
 
         gunDamage = 35;
 

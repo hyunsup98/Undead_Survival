@@ -22,7 +22,7 @@ public class Item : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (UI.instance.gamestate != GameState.Play)
+        if (UI.Instance.gamestate != GameState.Play)
             return;
 
         if (p == null)

@@ -24,7 +24,7 @@ public abstract class Monster : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (UI.instance.gamestate != GameState.Play)
+        if (UI.Instance.gamestate != GameState.Play)
             return;
 
         if (p == null || hp <= 0)
@@ -113,7 +113,7 @@ public abstract class Monster : MonoBehaviour
 
     IEnumerator CDropExp()
     {
-        UI.instance.KillCount++;
+        UI.Instance.KillCount++;
         int rand = Random.Range(0, 101);
 
         if(rand < 70)
