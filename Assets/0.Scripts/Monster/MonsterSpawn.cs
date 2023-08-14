@@ -44,8 +44,8 @@ public class MonsterSpawn : MonoBehaviour
         {
             Vector2 v = RandomPosition(boxCollider);
 
-            Instantiate(box, v, Quaternion.identity);
-            transform.SetParent(null);
+            box = Instantiate(box, v, Quaternion.identity);
+            box.transform.SetParent(null);
 
             box = null;
         }
@@ -61,19 +61,7 @@ public class MonsterSpawn : MonoBehaviour
     {
         Vector2 v = RandomPosition(boxCollider);
 
-        int randSpawnCount = 0;
-        if (monsters.Length > (UI.Instance.KillCount / 100))
-        {
-            randSpawnCount = (UI.Instance.KillCount / 100);
-        }
-        else
-        {
-            randSpawnCount = monsters.Length;
-        }
-        int rand_M = Random.Range(0, randSpawnCount);
-        Monster m = Instantiate(monsters[rand_M], v, Quaternion.identity);
-        m.SetPlayer(p);
-        m.transform.SetParent(parent);
+        MonsterSpawnController.Instance.Create(v);
     }
 
     Vector2 RandomPosition(BoxCollider2D boxColl)

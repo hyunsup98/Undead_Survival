@@ -16,11 +16,10 @@ public abstract class Monster : MonoBehaviour
     protected float atkTime;
     protected int power;
     [HideInInspector] public int hp;
-
+    [HideInInspector] public int maxHp;
     private float atkTimer = 0f;
 
     private float hitFreezeTimer;
-
     // Update is called once per frame
     void Update()
     {
@@ -98,6 +97,7 @@ public abstract class Monster : MonoBehaviour
 
         if (hp <= 0)
         {
+            hitFreezeTimer = 0;
             Destroy(GetComponent<Rigidbody2D>());
             GetComponent<CapsuleCollider2D>().enabled = false;
             animator.SetTrigger("dead");
@@ -114,7 +114,7 @@ public abstract class Monster : MonoBehaviour
     IEnumerator CDropExp()
     {
         UI.Instance.KillCount++;
-        int rand = Random.Range(0, 101);
+        int rand = Random.Range(0, 100);
 
         if(rand < 70)
             Instantiate(expPrefab[0], transform.position, Quaternion.identity);
@@ -124,7 +124,7 @@ public abstract class Monster : MonoBehaviour
             Instantiate(expPrefab[2], transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(2f);
-        Destroy(gameObject);
+        MonsterSpawnController.Instance.TakeMonster(this);
     }
 }
 
