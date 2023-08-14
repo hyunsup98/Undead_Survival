@@ -17,6 +17,7 @@ public abstract class Monster : MonoBehaviour
     protected int power;
     [HideInInspector] public int hp;
     [HideInInspector] public int maxHp;
+    [HideInInspector] public int monsterType;
     private float atkTimer = 0f;
 
     private float hitFreezeTimer;
@@ -124,7 +125,7 @@ public abstract class Monster : MonoBehaviour
             Instantiate(expPrefab[2], transform.position, Quaternion.identity);
 
         yield return new WaitForSeconds(2f);
-        MonsterSpawnController.Instance.TakeMonster(this);
+        MonsterSpawnController.Instance.TakeMonster(this, monsterType);
     }
 }
 

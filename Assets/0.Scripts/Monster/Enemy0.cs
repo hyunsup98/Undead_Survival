@@ -7,6 +7,7 @@ public class Enemy0 : Monster
     // Start is called before the first frame update
     void Start()
     {
+        monsterType = 0;
         atkTime = 1f;
         power = 10;
         hp = 100;

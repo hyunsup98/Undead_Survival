@@ -13,7 +13,9 @@ public class MonsterSpawnController : Singleton<MonsterSpawnController>
 
     [SerializeField] Box box;
 
-    private Queue<Monster> m = new Queue<Monster>();
+    Queue<Monster> m = new Queue<Monster>();
+
+    List<Queue<Monster>> listM = new List<Queue<Monster>>();
 
     Player p;
 
@@ -24,6 +26,12 @@ public class MonsterSpawnController : Singleton<MonsterSpawnController>
         foreach(var mon in monsterSpawns)
         {
             mon.SetData(monsters, parent);
+        }
+
+        foreach(var item in monsters)
+        {
+            Queue<Monster> m = new Queue<Monster>();
+            listM.Add(m);
         }
 
         InvokeRepeating("SpawnBox", 5f, 25f);
@@ -40,42 +48,42 @@ public class MonsterSpawnController : Singleton<MonsterSpawnController>
     {
         Monster mon = null;
         SetMonster();
-        if (m.Count == 0)
+        if (listM[rand_M].Count == 0)
         {
             mon = Instantiate(monsters[rand_M]);
         }
         else
         {
-            mon = m.Dequeue();
+            mon = listM[rand_M].Dequeue();
             mon.gameObject.SetActive(true);
-            Debug.Log(mon.hp);
         }
         mon.transform.SetParent(parent);
         mon.transform.position = v;
         mon.SetPlayer(p);
     }
 
-    public void TakeMonster(Monster monster)
+    public void TakeMonster(Monster monster, int monsterType)
     {
         monster.AddComponent<Rigidbody2D>().gravityScale = 0;
         monster.GetComponent<CapsuleCollider2D>().enabled = true;
         monster.hp = monster.maxHp;
         monster.gameObject.SetActive(false);
-        m.Enqueue(monster);
+
+        listM[monster.monsterType].Enqueue(monster);
     }
 
     void SetMonster()
     {
         int randSpawnCount = 0;
-        if (monsters.Length > (UI.Instance.KillCount / 100))
+        if (monsters.Length > (UI.Instance.KillCount / 10))
         {
-            randSpawnCount = (UI.Instance.KillCount / 100);
+            randSpawnCount = (UI.Instance.KillCount / 10);
         }
         else
         {
             randSpawnCount = monsters.Length;
         }
-        rand_M = Random.Range(0, randSpawnCount);
+        rand_M = Random.Range(0, randSpawnCount + 1);
     }
 
     void SpawnBox()
